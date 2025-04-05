@@ -65,7 +65,7 @@ def create_new_model_multi(old_model, m, new_output_dim, fine_tune_lr=1e-4):
 def generate_new_labels(prev_true, prev_pred):
     """
     Generate new integer labels for one category based on previous true labels and predictions.
-    If the previous prediction matches the true label, label becomes (true * 2); if not, (true * 2 + 1).
+    If the previous prediction matches the true label, label becomes (true * 2 + 1); if not, (true * 2).
     """
     return np.where(prev_true % 2 == 0, prev_pred * 2, prev_pred * 2 + 1)
 
