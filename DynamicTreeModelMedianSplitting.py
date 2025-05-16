@@ -158,11 +158,7 @@ def main():
         pos_threshold = np.median(pos_probs) if len(pos_probs) > 0 else 0.5
         neg_threshold = np.median(neg_probs) if len(neg_probs) > 0 else 0.5
 
-        # Assign new 4-class labels:
-        # If real label is positive (1):
-        #   If predicted positive prob > pos_threshold => 3, else => 2
-        # If real label is negative (0):
-        #   If predicted negative prob < neg_threshold => 1, else => 0
+
         new_labels_category = np.zeros(len(X_train), dtype=int)
         for idx_val in range(len(X_train)):
             if y_train_binary[idx_val, i] == 1:
@@ -212,11 +208,7 @@ def main():
         threshold2 = np.median(probs2) if len(probs2) > 0 else 0.5
         threshold3 = np.median(probs3) if len(probs3) > 0 else 0.5
 
-        # Assign new 4-class labels:
-        # If real label is positive (1):
-        #   If predicted positive prob > pos_threshold => 3, else => 2
-        # If real label is negative (0):
-        #   If predicted negative prob < neg_threshold => 1, else => 0
+       
         new_labels_category = np.zeros(len(X_train), dtype=int)
         for idx_val in range(len(X_train)):
             if new_pred[idx_val, i] == 0:
