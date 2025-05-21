@@ -191,7 +191,7 @@ def main():
     
     # Retrain iteration 1 with 3 epochs.
     cascaded_model = build_initial_model_multi(input_shape=(X_train.shape[1],), m=m, output_dim=2)
-    cascaded_model.fit(X_train, y_train_list, epochs=3, batch_size=16, verbose=1)
+    cascaded_model.fit(X_train, y_train_list, epochs=2, batch_size=16, verbose=1)
     preds = cascaded_model.predict(X_train)
     prev_pred_list = [np.argmax(preds[i], axis=1) for i in range(m)]
     prev_true_list = [y_train_binary[:, i] for i in range(m)]
@@ -206,7 +206,7 @@ def main():
     
     # Create new model; now we allow fine-tuning of shared layers at a lower LR.
     cascaded_model = create_new_model_multi(cascaded_model, m, new_output_dim=4, fine_tune_lr=1e-4)
-    cascaded_model.fit(X_train, new_labels_list, epochs=6, batch_size=16, verbose=1)
+    cascaded_model.fit(X_train, new_labels_list, epochs=4, batch_size=16, verbose=1)
     preds = cascaded_model.predict(X_train)
     prev_pred_list = [np.argmax(preds[i], axis=1) for i in range(m)]
     # For next iteration, use the new labels as true labels.
@@ -220,7 +220,7 @@ def main():
         new_labels_list.append(new_labels)
     
     cascaded_model = create_new_model_multi(cascaded_model, m, new_output_dim=8, fine_tune_lr=1e-4)
-    cascaded_model.fit(X_train, new_labels_list, epochs=100, batch_size=16, verbose=1)
+    cascaded_model.fit(X_train, new_labels_list, epochs=20, batch_size=16, verbose=1)
     
     # -------------------------------
     # Final Prediction from Cascaded Model using the New Rule
